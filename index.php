@@ -84,7 +84,7 @@
                         <img src="assets/imagenes/img3.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 3</a>
+                            <a href="#" class="a">tipo 3_</a>
                         </div>
                     </div>
                     <div class="imagen-port">
