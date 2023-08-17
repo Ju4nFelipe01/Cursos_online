@@ -19,8 +19,49 @@
   <br>
 
   <div class="container">
-    <a href="nuevo_producto.php" class="btn btn-dark">Agregar producto</a>
-    <a href="../login/inicio.php" class="btn btn-dark">Volver</a><br><br>
+       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
+      curso</button>
+    <a href="../login/inicio.php" class="btn btn-dark">volver</a>
+    <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modaltitle">Nuevo curso:</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="guardar.php" method="post" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Nombre de curso</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="Nombre" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Tipo de curso</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="Tipo" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Valor COP</label>
+                <input type="number" class="form-control" id="exampleInputEmail1" name="Valor" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="Descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Imagen</label>
+                <input type="file" class="form-control" id="exampleInputPassword1" name="Imagen" required>
+              </div><br>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
     <!-- consulta dee datos -->
     <div>
       <h1>Consultar producto</h1>
@@ -95,10 +136,86 @@ while ($contenido = $fila->fetch_assoc()) { ?>
           </td>
           <td><img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($contenido['Imagen'])?>" alt="">
           </td>
-          <td>
-            <a href="vista_editar.php?Id=<?php echo $contenido['Id'] ?>" class="btn btn-dark">Editar</a>
-            <a href="eliminar_producto.php?Id=<?php echo $contenido['Id'] ?>" class="btn btn-danger">Eliminar</a>
+           <td>
+            <button class="btn btn-small btn-warning" data-bs-toggle="modal"
+              data-bs-target="#modaleditar<?php echo $contenido['Id']?>">Editar</button>
+            <button class="btn btn-small btn-danger" data-bs-toggle="modal"
+              data-bs-target="#modaleliminar<?php echo $contenido['Id']?>">Eliminar</button>
           </td>
+          <div class="modal fade" id="modaleditar<?php echo $contenido['Id']?>">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modaltitle">Editar curso:</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="editar_producto.php?Ideditar=<?php echo $contenido['Id'] ?>" method="post"
+                    enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" name="NombreProducto"
+                        value="<?php echo $contenido['Nombre'] ?>">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Descripcion</label>
+                      <input type="text" class="form-control" name="DescripcionProducto"
+                        value="<?php echo $contenido['Descripcion'] ?>">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Tipo</label>
+                      <input type="text" class="form-control" name="TipoProducto" value="<?php echo $contenido['Tipo'] ?>">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Valor</label>
+                      <input type="text" class="form-control" name="ValorProducto" value="<?php echo $contenido['Valor'] ?>">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Imagen</label><br>
+                      <img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($contenido['Imagen'])?>" alt=""><br><br>
+
+
+                      <input type="file" class="form-control" name="ImagenProducto">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-dark">Enviar</button>
+                      <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade" id="modaleliminar<?php echo $contenido['Id']?>">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modaltitle">Eliminar curso:</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="eliminar_producto.php?Id=<?php echo $contenido['Id'] ?>" method="post"
+                    enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Estas seguro de que deseas eliminar este curso</label>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-danger">Estoy de acuerdo</button>
+                      <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </tr>
       </tbody>
       <?php  } ?>

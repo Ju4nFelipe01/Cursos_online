@@ -21,6 +21,12 @@
   <div class="container">
     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
       usuario</button>
+
+    <?php
+        include "Config/Conexion.php";
+        $query='SELECT Id, Rol FROM rol';
+        $sql=mysqli_query($conectar,$query);  
+        ?>
     <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -48,9 +54,14 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Rol</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" name="Rol"
-                  value="<?php echo $fila['Id_rol'] ?>" placeholder="Definir rol 1(admin), 2(vendedor), 3(usuario)"
-                  required>
+                <select name="Rol" id="" class="form-select" required>
+                  <option selected>seleccione un rol</option>
+                  <?php 
+                  while ($v=mysqli_fetch_array($sql)) {
+                    echo "<option value=" .$v[0].">".$v[1]."</option>";
+                  }
+                  ?>
+                </select>
               </div><br>
 
               <div class="modal-footer">
@@ -92,9 +103,10 @@
 
         <?php 
       include "Config/Conexion.php";
-
+      $query='SELECT Id, Rol FROM rol';
       $sql = "SELECT * FROM  usuarios";
       $resultado = $conectar->query($sql);
+      $sqli=mysqli_query($conectar,$query);  
 
       while ($fila = $resultado-> fetch_assoc()) { ?>
 
@@ -115,7 +127,7 @@
             <?php echo $fila['Id_rol'] ?>
           </td>
           <td>
-            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
               data-bs-target="#modaleditar<?php echo $fila['Documento']?>">editar</button>
             <button type="button" class=" btn btn-danger" data-bs-toggle="modal"
               data-bs-target="#modaleliminar<?php echo $fila['Documento']?>">eliminar</button>
@@ -149,13 +161,12 @@
                       <input type="text" class="form-control" name="ContraseñaUsuario"
                         value="<?php echo $fila['Contraseña'] ?>">
                     </div>
-
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Rol</label><br>
+                      <label for="exampleInputEmail1" class="form-label">Contraseña</label>
+                      <input type="number" class="form-control" name="RolUsuario"
+                        value="<?php echo $fila['Id_rol'] ?>">
+                    </div><br>
 
-                      <input type="number" class="form-control" name="RolUsuario" value="<?php echo $fila['Id_rol'] ?>"
-                        placeholder="Definir rol 1(admin), 2(vendedor), 3(usuario)">
-                    </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-dark">Enviar</button>
                       <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>

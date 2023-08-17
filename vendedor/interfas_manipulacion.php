@@ -20,7 +20,47 @@ if (!isset($rol)) {
 </head>
 
 <body class="body-expanded">
-  
+
+    <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modaltitle">Nuevo curso:</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="../vendedor/guardar.php" method="post" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Nombre de curso</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="Nombre" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Tipo de curso</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="Tipo" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Valor COP</label>
+                <input type="number" class="form-control" id="exampleInputEmail1" name="Valor" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="Descripcion" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Imagen</label>
+                <input type="file" class="form-control" id="exampleInputPassword1" name="Imagen" required>
+              </div><br>
+
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div> 
   <div id="sidemenu" class="menu-expanded">
         <!-- header -->
     <div id="header">
@@ -32,7 +72,6 @@ if (!isset($rol)) {
       <div id="title">
         <span>ACCIONES</span>
       </div>
-
     </div>
     <!-- profile -->
     <div id="profile">
@@ -46,9 +85,8 @@ if (!isset($rol)) {
       
            <div class="separator">
       </div>
-      
       <div class="item">
-        <a href="../vendedor/nuevo_producto.php">
+        <a href="" data-bs-toggle="modal" data-bs-target="#miModal">
           <div class="icon">
             <img src="../assets/imagenes/icono4.png" alt="">
           </div>
@@ -115,9 +153,9 @@ if (!isset($rol)) {
       while ($fila = $resultado-> fetch_assoc()) { ?>
 
       <div class="container">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin-bottom: 40px;">
 
-          <img class="card-img-top" src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt="">
+          <img class="card-img-top" style="width: 200px, 100%; height: 200px; " src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt="">
           <div class="card-body">
             <h5 class="card-title">
               <?php echo $fila['Nombre'] ?>

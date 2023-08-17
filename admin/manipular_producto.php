@@ -21,7 +21,7 @@
   <br>
 
   <div class="container">
-    <button type="button" class="mt-5 mx-5 btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
+    <button type="button" class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
       curso</button>
     <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
       <div class="modal-dialog">
@@ -50,6 +50,7 @@
               </div>
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Imagen</label>
+                <img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($contenido['Imagen'])?>" alt="">
                 <input type="file" class="form-control" id="exampleInputPassword1" name="Imagen" required>
               </div><br>
 
@@ -115,7 +116,7 @@
           <td>
             <?php echo $fila['Valor'] ?>
           </td>
-          <td><img style="width:100px;" src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt="">
+          <td><img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt="">
           </td>
           <td>
             <button class="btn btn-small btn-warning" data-bs-toggle="modal"
@@ -158,6 +159,7 @@
 
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Imagen</label><br>
+                      <img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt=""><br><br>
 
                       <input type="file" class="form-control" name="ImagenProducto">
                     </div>

@@ -19,8 +19,9 @@
   <br>
 
   <div class="container">
-        <button type="button" class="mt-5 mx-5 btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
+       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
       curso</button>
+    <a href="../login/inicio.php" class="btn btn-dark">volver</a>
     <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -52,17 +53,15 @@
               </div><br>
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-dark">Enviar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
               </div>
             </form>
           </div>
 
         </div>
       </div>
-    </div>
-
-    <a href="../login/inicio.php" class="btn btn-dark">Volver</a><br><br>
+    </div><br><br>
     <!-- consulta dee datos -->
     <div>
       <h1>Consultar producto</h1>
@@ -103,7 +102,7 @@ OR Valor LIKE '%".$search_criteria."%'
 OR Tipo LIKE '%".$search_criteria."%' 
  ";
 
-$autores = [];
+$fila = [];
 $errores = ['data' => false];
 
 
@@ -112,10 +111,12 @@ $getAutores = $conectar->query($query);
 if ($getAutores->num_rows > 0) {
     $fila = $getAutores;
 
+}else{
   echo 'no hay resultados para el criterio de busqueda: ', $search_criteria  ;
   die();
-  
-}while ($contenido = $fila->fetch_assoc()) { ?>
+}
+
+while ($contenido = $fila->fetch_assoc()) { ?>
         
          <tr>
           <th scope="row">
@@ -135,7 +136,7 @@ if ($getAutores->num_rows > 0) {
           </td>
           <td><img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($contenido['Imagen'])?>" alt="">
           </td>
-          <td>
+           <td>
             <button class="btn btn-small btn-warning" data-bs-toggle="modal"
               data-bs-target="#modaleditar<?php echo $contenido['Id']?>">Editar</button>
             <button class="btn btn-small btn-danger" data-bs-toggle="modal"
@@ -176,6 +177,7 @@ if ($getAutores->num_rows > 0) {
 
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Imagen</label><br>
+                      <img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($contenido['Imagen'])?>" alt=""><br><br>
 
                       <input type="file" class="form-control" name="ImagenProducto">
                     </div>
@@ -202,8 +204,7 @@ if ($getAutores->num_rows > 0) {
                     enctype="multipart/form-data">
 
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Estas seguro de que deseas eliminar este
-                        curso</label>
+                      <label for="exampleInputEmail1" class="form-label">Estas seguro de que deseas eliminar este curso</label>
                     </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-danger">Estoy de acuerdo</button>

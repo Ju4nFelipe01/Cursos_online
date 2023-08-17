@@ -68,7 +68,7 @@
                         <img src="assets/imagenes/img1.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 1</a>
+                            <a href="#" class="a">Programacion</a>
                         </div>
                     </div>
                     <div class="imagen-port">
@@ -76,7 +76,7 @@
                         <img src="assets/imagenes/img2.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 2</a>
+                            <a href="#" class="a">Fotografia</a>
                         </div>
                     </div>
                     <div class="imagen-port">
@@ -84,7 +84,7 @@
                         <img src="assets/imagenes/img3.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 3_</a>
+                            <a href="#" class="a">Microsoft</a>
                         </div>
                     </div>
                     <div class="imagen-port">
@@ -92,7 +92,7 @@
                         <img src="assets/imagenes/img4.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 4</a>
+                            <a href="#" class="a">Cocina</a>
                         </div>
                     </div>
                     <div class="imagen-port">
@@ -100,7 +100,7 @@
                         <img src="assets/imagenes/img5.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 5</a>
+                            <a href="#" class="a">Idiomas</a>
                         </div>
                     </div>
                     <div class="imagen-port">
@@ -108,7 +108,7 @@
                         <img src="assets/imagenes/img6.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 6</a>
+                            <a href="#" class="a">Emprendimiento</a>
                         </div>
                     </div>
                     <div class="imagen-port">
@@ -116,7 +116,7 @@
                         <img src="assets/imagenes/img7.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 7</a>
+                            <a href="#" class="a">Arte</a>
                         </div>
                     </div>
                     <div class="imagen-port">
@@ -124,7 +124,7 @@
                         <img src="assets/imagenes/img8.jpg" alt="">
                         <div class="hover-galeria">
                             <img src="assets/imagenes/icono1.png" alt="">
-                            <a href="#" class="a">tipo 8</a>
+                            <a href="#" class="a">Contenido digital</a>
                         </div>
                     </div>
                 </div>

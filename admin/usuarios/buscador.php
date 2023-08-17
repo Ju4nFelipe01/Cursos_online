@@ -134,7 +134,7 @@ if ($getAutores->num_rows > 0) {
             <?php echo $contenido['Id_rol'] ?>
           </td>
                     <td>
-            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
               data-bs-target="#modaleditar<?php echo $contenido['Documento']?>">editar</button>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
              data-bs-target="#modaleliminar<?php echo $contenido['Documento']?>">eliminar</button>
