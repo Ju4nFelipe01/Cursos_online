@@ -10,6 +10,11 @@
 </head>
 
 <body>
+  <?php
+  session_start();
+  $Documento=$_SESSION['documento'];
+  $_SESSION['documento']=$Documento;
+  ?>
   <div class="container">
     <br>
     <center>
@@ -31,7 +36,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
           </div>
           <div class="modal-body">
-            <form action="guardar.php" method="post" enctype="multipart/form-data">
+            <form action="guardar.php?Documento=<?php echo $Documento ?>" method="post" enctype="multipart/form-data">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Nombre de curso</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" name="Nombre" required>
@@ -68,14 +73,14 @@
     <div>
       <h1>Consultar producto</h1>
       <div class="input-container">
-        <form class="d-flex" role="search" method="post" action="buscador.php">
+        <form class="d-flex" role="search" method="post" action="buscador.php?Documento=<?php echo $Documento ?>">
           <input class="form-control me-2" type="search" placeholder="buscar" aria-label="Search" id="search"
             name="Buscar">
         </form>
       </div><br>
     </div>
     <br>
-
+    <!-- tabla -->
     <table class="table">
       <thead>
         <tr>
@@ -92,8 +97,7 @@
 
         <?php 
       include "Config/Conexion.php";
-
-      $sql = "SELECT * FROM productos";
+      $sql = "SELECT * FROM productos WHERE Vendedor=$Documento";
       $resultado = $conectar->query($sql);
 
       while ($fila = $resultado-> fetch_assoc()) { ?>
@@ -180,7 +184,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                 </div>
                 <div class="modal-body">
-                  <form action="eliminar_producto.php?Id=<?php echo $fila['Id'] ?>" method="post"
+                  <form action="eliminar_producto.php?Id=<?php echo $fila['Id'] ?>&Documento=<?php echo $Documento?>" method="post"
                     enctype="multipart/form-data">
 
                     <div class="mb-3">

@@ -163,7 +163,7 @@
                         </h5>
                     </center>
                     <center>
-                        <a href="#" class="btn btn-dark">INICIAR</a>
+                        <a href="curso.php" class="btn btn-dark">INICIAR</a>
                     </center><br>
                 </div>
             </div>

@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="../assets/css/index.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="../assets/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/dselect.js"></script>
 </head>
 
 <body>
@@ -21,50 +23,67 @@
   <br>
 
   <div class="container">
-    <button type="button" class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
-      curso</button>
-    <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="modaltitle">Nuevo curso:</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="guardar.php" method="post" enctype="multipart/form-data">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Nombre de curso</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" name="Nombre" required>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tipo de curso</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" name="Tipo" required>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Valor COP</label>
-                <input type="number" class="form-control" id="exampleInputEmail1" name="Valor" required>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Descripcion</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="Descripcion" required>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Imagen</label>
-                <img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($contenido['Imagen'])?>" alt="">
-                <input type="file" class="form-control" id="exampleInputPassword1" name="Imagen" required>
-              </div><br>
+  <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <?php 
+        include "Config/Conexion.php";
+        $query = "
+            SELECT Documento,Nombre FROM  usuarios WHERE Id_rol=2 
+            ORDER BY Nombre ASC
+        ";
+        $result = $conectar->query($query);
+        ?>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modaltitle">Nuevo curso:</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="../admin/guardar.php" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Proveedor</label>
+              <select name="Vendedor" class="form-select" id="select_box" required>
+                <option value="" >Seleccione un proveedor</option>
+                <?php 
+                        foreach($result as $row)
+                        {
+                            echo '<option value="'.$row["Documento"].'">'.$row["Nombre"].'</option>';
+                        }
+                        ?>
+              </select>
+            </div>
 
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-dark">Enviar</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              </div>
-            </form>
-          </div>
-
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Nombre de curso</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" name="Nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Tipo de curso</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" name="Tipo" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Valor COP</label>
+              <input type="number" class="form-control" id="exampleInputEmail1" name="Valor" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Descripcion</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" name="Descripcion" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Imagen</label>
+              <input type="file" class="form-control" id="exampleInputPassword1" name="Imagen" required>
+            </div><br>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Enviar</button>
+              <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-
+  </div>
+  <button type="button" class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
+      curso</button>
     <a href="../login/inicio.php" class="btn btn-dark">Volver</a><br><br>
     <!-- consulta dee datos -->
     <div>
@@ -87,6 +106,7 @@
           <th scope="col">Tipo</th>
           <th scope="col">Valor</th>
           <th scope="col">Imagen</th>
+          <th scope="col">Proveedor</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
@@ -117,6 +137,9 @@
             <?php echo $fila['Valor'] ?>
           </td>
           <td><img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt="">
+          </td>
+          <td>
+            <?php echo $fila['Vendedor'] ?>
           </td>
           <td>
             <button class="btn btn-small btn-warning" data-bs-toggle="modal"
@@ -159,7 +182,7 @@
 
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Imagen</label><br>
-                      <img style="width:150px;" src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt=""><br><br>
+                      <img style="width:150px; height:150px" src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt=""><br><br>
 
                       <input type="file" class="form-control" name="ImagenProducto">
                     </div>
@@ -203,9 +226,12 @@
       <?php  } ?>
     </table>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"></script>
+  <script>
+    var select_box_element = document.querySelector('#select_box');
+    dselect(select_box_element, {
+      search: true
+    });
+  </script>
 </body>
 
 </html>

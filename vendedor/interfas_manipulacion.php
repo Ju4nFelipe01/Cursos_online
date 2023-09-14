@@ -29,7 +29,7 @@ if (!isset($rol)) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
           </div>
           <div class="modal-body">
-            <form action="../vendedor/guardar.php" method="post" enctype="multipart/form-data">
+            <form action="../vendedor/guardar.php?Documento=<?php echo $Documento ?>" method="post" enctype="multipart/form-data">
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Nombre de curso</label>
                 <input type="text" class="form-control" id="exampleInputEmail1" name="Nombre" required>
@@ -147,7 +147,7 @@ if (!isset($rol)) {
       <?php 
       include "Config/Conexion.php";
 
-      $sql = "SELECT * FROM productos";
+      $sql = "SELECT * FROM productos WHERE Vendedor=$Documento";
       $resultado = $conectar->query($sql);
 
       while ($fila = $resultado-> fetch_assoc()) { ?>

@@ -1,45 +1,152 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Agregar productos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<head>
+    <link rel="shortcut icon" href="../assets/imagenes/logo1.jpg" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
 
-  <div class="container">
-    <br>
-    <h1>Iniciar sesion</h1>
-    <br>
+    h1 {
+        display: flex;
+        gap: 20px;
 
-    <form action="acciones/login.php" method="post" enctype="multipart/form-data">
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+      .background-radial-gradient {
+       
+        background-color: hsl(218, 41%, 15%);
+        background-image: radial-gradient(650px circle at 0% 0%,
+            hsl(218, 41%, 35%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%),
+          radial-gradient(1250px circle at 100% 100%,
+            hsl(218, 41%, 45%) 15%,
+            hsl(218, 41%, 30%) 35%,
+            hsl(218, 41%, 20%) 75%,
+            hsl(218, 41%, 19%) 80%,
+            transparent 100%);
+      }
   
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Documento</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" name="Documento" required>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" name="Contraseña" required>
-  </div><br>
- 
-  <button type="submit" class="btn btn-dark">Enviar</button>
-  <a href="../index.php" class="btn btn-dark">Volver</a><br><br>
-  <div class="container">
-    <h5>No tienes cuenta?
-      <a class="icon-link" href="registrese.php">
-        Registrate
-        <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
-      </a>
-    </h5>
-  </div>
+      #radius-shape-1 {
+        height: 220px;
+        width: 220px;
+        top: -60px;
+        left: -130px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+      }
   
-    </form>
-    
-  </div>
+      #radius-shape-2 {
+        border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+        bottom: -60px;
+        right: -110px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
+      }
+  
+      .bg-glass {
+        background-color: hsla(0, 0%, 100%, 0.9) !important;
+        backdrop-filter: saturate(200%) blur(25px);
+      }
 
+      .registrarse {
+        display: flex;
+        justify-content: center;
+        
+      }
 
-  </body>
+      .registro {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      
+      }
+
+      @media (max-width:991px) {
+        h1 {
+          justify-content: center;
+        }
+      }
+    </style>
+    <div class="login ">
+        <!-- Section: Design Block -->
+<section class="background-radial-gradient overflow-hidden">
+  
+  
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+      <div class="row gx-lg-5 align-items-center mb-5">
+        <div class="col-lg-6 mb-5 mb-lg-0 titulo" style="z-index: 10">
+          <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+            Cursos <br />
+            <span style="color: hsl(218, 81%, 75%)">Online</span>
+          </h1>
+          <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
+            Pfrecemos cursos online dinamicos, didacticos y con una calidad premium 100% garantizada los cuales garantizan su rapido acceso al mundo laboral.
+          </p>
+        </div>
+  
+        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+          <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+          <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+  
+          <div class="card bg-glass">
+            <div class="card-body px-4 py-5 px-md-5">
+              <form action="acciones/login.php" method="post" enctype="multipart/form-data">
+                
+                <h2> Iniciar sesion</h2>
+  
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" name="Documento" required />
+                  <label class="form-label" for="form3Example3">Documento</label>
+                </div>
+  
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password" id="form3Example4" class="form-control" name="Contraseña" required />
+                  <label class="form-label" for="form3Example4">Contraseña</label>
+                </div>
+  
+              
+                  
+                  
+                </div>
+                <div class="registrarse">
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">
+                  Ingresar
+                </button>
+                  
+                </div>
+  
+                <div class="registro">
+                    <p>No tienes cuenta? </p>
+                    <a href="registrese.php"> registrese</a>
+                  </div>
+                
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Section: Design Block -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
 </html>

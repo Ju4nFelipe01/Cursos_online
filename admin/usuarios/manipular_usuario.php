@@ -37,6 +37,17 @@
           <div class="modal-body">
             <form action="guardar.php" method="post" enctype="multipart/form-data">
               <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Rol</label>
+                <select name="Rol" id="" class="form-select" required>
+                  <option selected>seleccione un rol</option>
+                  <?php 
+                  while ($v=mysqli_fetch_array($sql)) {
+                    echo "<option value=" .$v[0].">".$v[1]."</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+              <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Documento</label>
                 <input type="number" class="form-control" id="exampleInputEmail1" name="Documento" required>
               </div>
@@ -52,17 +63,7 @@
                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                 <input type="text" class="form-control" id="exampleInputPassword1" name="Contraseña" required>
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Rol</label>
-                <select name="Rol" id="" class="form-select" required>
-                  <option selected>seleccione un rol</option>
-                  <?php 
-                  while ($v=mysqli_fetch_array($sql)) {
-                    echo "<option value=" .$v[0].">".$v[1]."</option>";
-                  }
-                  ?>
-                </select>
-              </div><br>
+              <br>
 
               <div class="modal-footer">
                 <button type="submit" class="btn btn-dark">Enviar</button>
@@ -134,6 +135,11 @@
           </td>
 
           <div class="modal fade" id="modaleditar<?php echo $fila['Documento']?>">
+              <?php
+        include "Config/Conexion.php";
+        $query='SELECT Id, Rol FROM rol';
+        $sqli=mysqli_query($conectar,$query);  
+        ?>
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -162,9 +168,15 @@
                         value="<?php echo $fila['Contraseña'] ?>">
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Contraseña</label>
-                      <input type="number" class="form-control" name="RolUsuario"
-                        value="<?php echo $fila['Id_rol'] ?>">
+              <label for="exampleInputPassword1" class="form-label">Rol <?php echo $fila['Id_rol'] ?><br>[1(admin) 2(vendedor) 3(usuario)]</label>
+              <select name="RolUsuario" id="" class="form-select" required>
+                <option selected>seleccione un rol</option>
+                <?php 
+                  while ($v=mysqli_fetch_array($sqli)) {
+                    echo "<option value=" .$v[0].">".$v[1]."</option>";
+                  }
+                  ?>
+              </select>
                     </div><br>
 
                     <div class="modal-footer">

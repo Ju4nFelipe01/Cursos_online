@@ -19,8 +19,14 @@
   <br>
 
   <div class="container">
-    <button type="button" class=" btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#miModal">Agregar
       usuario</button>
+
+    <?php
+        include "Config/Conexion.php";
+        $query='SELECT Id, Rol FROM rol';
+        $sql=mysqli_query($conectar,$query);  
+        ?>
     <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -30,6 +36,17 @@
           </div>
           <div class="modal-body">
             <form action="guardar.php" method="post" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Rol</label>
+                <select name="Rol" id="" class="form-select" required>
+                  <option selected>seleccione un rol</option>
+                  <?php 
+                  while ($v=mysqli_fetch_array($sql)) {
+                    echo "<option value=" .$v[0].">".$v[1]."</option>";
+                  }
+                  ?>
+                </select>
+              </div>
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Documento</label>
                 <input type="number" class="form-control" id="exampleInputEmail1" name="Documento" required>
@@ -46,12 +63,7 @@
                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                 <input type="text" class="form-control" id="exampleInputPassword1" name="Contraseña" required>
               </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Rol</label>
-                <input type="number" class="form-control" id="exampleInputPassword1" name="Rol"
-                  value="<?php echo $fila['Id_rol'] ?>" placeholder="Definir rol 1(admin), 2(vendedor), 3(usuario)"
-                  required>
-              </div><br>
+              <br>
 
               <div class="modal-footer">
                 <button type="submit" class="btn btn-dark">Enviar</button>
@@ -64,6 +76,7 @@
       </div>
     </div>
     <a href="../../login/inicio.php" class="btn btn-dark">Volver</a><br><br>
+
     
     <!-- consulta dee datos -->
     <div>
@@ -141,6 +154,11 @@ if ($getAutores->num_rows > 0) {
           </td>
 
           <div class="modal fade" id="modaleditar<?php echo $contenido['Documento']?>">
+                        <?php
+        include "Config/Conexion.php";
+        $query='SELECT Id, Rol FROM rol';
+        $sqli=mysqli_query($conectar,$query);  
+        ?>
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -165,11 +183,16 @@ if ($getAutores->num_rows > 0) {
                       <label for="exampleInputEmail1" class="form-label">Contraseña</label>
                       <input type="text" class="form-control" name="ContraseñaUsuario" value="<?php echo $contenido['Contraseña'] ?>">
                     </div>
-
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Rol</label><br>
-
-                      <input type="number" class="form-control" name="RolUsuario" value="<?php echo $contenido['Id_rol'] ?>" placeholder="Definir rol 1(admin), 2(vendedor), 3(usuario)">
+              <label for="exampleInputPassword1" class="form-label">Rol <?php echo $contenido['Id_rol'] ?><br>[1(admin) 2(vendedor) 3(usuario)]</label>
+              <select name="RolUsuario" id="" class="form-select" required>
+                <option selected>seleccione un rol</option>
+                <?php 
+                  while ($v=mysqli_fetch_array($sqli)) {
+                    echo "<option value=" .$v[0].">".$v[1]."</option>";
+                  }
+                  ?>
+              </select>
                     </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-dark">Enviar</button>
