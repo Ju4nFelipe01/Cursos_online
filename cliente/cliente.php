@@ -1,3 +1,38 @@
+<?php
+include "../admin/config/Conexion.php";
+$resultado = mysqli_query($conectar,"SELECT * FROM productos");
+$productos=mysqli_fetch_all($resultado ,MYSQLI_ASSOC);
+?>
+
+
+
+<!-- validacion carrito -->
+<?php
+if (isset($_SESSION['carrito'])) {
+    $carrito_mio=$_SESSION['carrito'];
+
+}
+?>
+<!-- contador carrito -->
+<?php
+
+    $total_cantidad = 0;
+if(isset($_SESSION['carrito'])){
+    for($i=0;$i<=count($carrito_mio)-1;$i ++){
+        if (isset($carrito_mio[$i])){
+        if($carrito_mio[$i]!=NULL){ 
+        if (!isset($carrito_mio[0]['cantidad'])) {$carrito_mio[0]['cantidad']=0;}else {$carrito_mio[0]['cantidad'] = 1;}
+        $total_cantidad = $total_cantidad + $carrito_mio[0]['cantidad'];
+    if (!isset($total_cantidad)) {$total_cantidad = '0';}else{$total_cantidad = $total_cantidad;}
+    }}}}
+?>
+
+
+
+
+
+</html>
+
 <!doctype html>
 <html lang="es">
 
@@ -14,10 +49,202 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,800&display=swap"
         rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-      <link rel="stylesheet" href="../assets/css/sidemenu.css">
+    <link rel="stylesheet" href="../assets/css/sidemenu.css">
 </head>
 
 <body class="body-expanded">
+    <style type="text/css">
+        body {
+
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+
+
+        }
+
+        :root {
+
+            --white: #FFFFFF;
+            --black: #000000;
+            --dark: #232830;
+            --very-light-pink: #C7C7C7;
+            --text-input-field: #F7F7F7;
+            --hospital-green: #ACD9B2;
+            --sm: 14px;
+            --md: 16px;
+            --lg: 18px;
+
+        }
+
+        .cards {
+            width: 100%;
+        }
+
+        .maincontainer {
+            width: 100%;
+        }
+
+
+        .cardcontainer {
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 240px);
+            gap: 80px;
+            place-content: center;
+
+        }
+
+        .productcard {
+
+            width: 240px;
+        }
+
+        .productcard img {
+
+
+            width: 100%;
+            height: 240px;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+
+        .productinfo {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+
+        div p:nth-child(1) {
+
+            font-weight: bold;
+            font-size: var(--md);
+            margin-top: 0px;
+            margin-bottom: 4px;
+        }
+
+        div p:nth-child(2) {
+
+
+            font-size: var(--sm);
+            color: var(--very-light-pink);
+            margin-top: 0;
+            margin-top: 0;
+        }
+
+        @media (max-width:640px) {
+
+            .cardcontainer {
+
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 140px);
+                gap: 30px;
+            }
+
+            .productcard {
+
+                width: 140px;
+            }
+
+            .productcard img {
+
+
+                width: 100%;
+                height: 140px;
+                border-radius: 20px;
+                object-fit: cover;
+            }
+
+            .btn {
+                width: 20px;
+
+                margin-bottom: 8px;
+
+            }
+
+
+
+
+        }
+    </style>
+    <!-- modal carrito -->
+    <div class="modal fade" id="miModalcarrito" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modaltitle">Mi carrito:</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="p-2">
+                        <div class="list-group mb-3">
+                            <ul class="list-group mb-3">
+                                <?php 
+                                if (isset($_SESSION['carrito'])) {
+                                    $total=0;
+                                    for ($i=0;$i<=count($carrito_mio)-1;$i ++) { 
+                                        if (isset($carrito_mio[$i])) {
+                                        if ($carrito_mio[$i]!=NULL) {
+                                            # code...
+
+                                ?>
+                                <li class="list-group-item d-flex justify-content-between 1h-condensed">
+                                    <div class="row col-12">
+                                        <div class="col-6 p-0" style="text-align: left; color:#000000;">
+                                            <h6 class="my-0">cantidad  <?php echo $carrito_mio[$i]['cantidad']?>: <?php echo $carrito_mio[$i]['nombre']?></h6>
+                                        </div>
+                                        <div class="col-6 p-0" style="text-align: right; color:#000000;">
+                                            <span class="text-muted" style="text-align: right; color:#000000;"><?php echo $carrito_mio[$i]['valor'] * $carrito_mio[$i]['cantidad'];?> $</span>
+                                        </div>
+
+                                    </div>
+                                </li>
+                                <?php
+                                $total = $total + ($carrito_mio[$i]['valor'] * $carrito_mio[$i]['cantidad']);
+                                }
+                                }
+                                }
+                                }
+                                ?>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span style="text-align: left; color:#000000;">Total(pesos)</span>
+                                    <strong style="text-align: left; color:#000000;">
+                                    <?php
+                                    if (isset($_SESSION['carrito'])) {
+                                        $total=0;
+                                        for ($i=0;$i<=count($carrito_mio)-1;$i ++) {
+                                             if (isset($carrito_mio[$i])) {
+                                        if ($carrito_mio[$i]!=NULL) {
+                                            $total = $total + ($carrito_mio[$i]['valor'] * $carrito_mio[$i]['cantidad']);
+                                        }
+                                    }}}
+                                    if (!isset($total)) {$total='0';}else{$total=$total;}
+                                    echo $total;
+                                    ?>
+
+                                    
+                                    
+                                    $</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="../cliente/borracarro.php" class="btn btn-danger">Borrar carrito</a>
+                    <a href="#" class="btn btn-success">continuar pedido</a>
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <div id="sidemenu" class="menu-expanded">
         <!-- header -->
         <div id="header">
@@ -35,7 +262,9 @@
         <div id="profile">
             <div id="name"><span>Usuario</span></div>
             <div id="photo"><img src="../assets/imagenes/icono10.png" alt="">
-                <div id="name"><span><?php echo $Nombre ?></span></div>
+                <div id="name"><span>
+                        <?php echo $Nombre ?>
+                    </span></div>
             </div>
         </div>
         <!-- items cursos -->
@@ -43,15 +272,17 @@
             <div class="separator">
             </div>
             <div class="item">
-                <a href="../cliente/carrito.php">
+                <a href="" data-bs-toggle="modal" data-bs-target="#miModalcarrito">
                     <div class="icon">
                         <img src="../assets/imagenes/icon13.png" alt="">
                     </div>
-                    <div class="title"><span>CARRITO</span></div>
+                    <div class="title"><span>
+                            <?php echo $total_cantidad ?> CARRITO
+                        </span></div>
                 </a>
             </div>
             <div class="item">
-                <a href="../vendedor/manipular_producto.php">
+                <a href="">
                     <div class="icon">
                         <img src="../assets/imagenes/icono3.png" alt="">
                     </div>
@@ -79,13 +310,13 @@
                     <div class="title"><span>SALIR</span></div>
                 </a>
             </div>
-</div>
+        </div>
     </div>
     <!-- cabezera de la pagina -->
     <header>
         <!-- barra de nacegacion -->
         <nav>
-            <a href="login/registrese.php">Cursos Online</a>
+            <a href="../index.php">Cursos Online</a>
         </nav>
         <section class="textos-header">
             <h1>El mejor lugar para aprender y disfrutar al 100%</h1>
@@ -192,46 +423,43 @@
             </div>
         </section>
         <!-- algunos cursos -->
-        <section class="clientes contenedor">
-            <h2 class="titulo">algunos de nuestros cursos</h2>
-            <div class="cards">
-                <?php 
-      include "../admin/config/Conexion.php";
 
-      $sql = "SELECT * FROM productos";
-      $resultado = $conectar->query($sql);
+        <h2 class="titulo">algunos de nuestros cursos</h2>
 
-      while ($fila = $resultado-> fetch_assoc()) { ?>
-                <div class="card">
-                    <img src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt="">
-                    <div class="contenido-texto-card">
-                        <h4>Curso:</h4>
-                        <center>
-                            <h5>
-                                <?php echo $fila['Nombre'] ?>
-                            </h5>
-                        </center>
-                        <h4>Descripcion:</h4>
-                        <center>
-                            <p>
-                                <?php echo $fila['Descripcion'] ?>
+
+        <div class="maincontainer">
+
+            <div class="cardcontainer">
+                <?php foreach($productos as $producto) { ?>
+
+                <div class="productcard">
+
+
+
+                    <img src="data:image/jpg;base64,<?php echo base64_encode($producto['Imagen'])?>">
+
+                    <div class="productinfo">
+                        <div>
+                            <p>$
+                                <?php echo $producto['Valor']; ?>pesos
                             </p>
-                        </center>
-                        <h4>valor</h4>
-                        <center>
-                            <h5>
-                                <?php echo $fila['Valor'] ?> pesos
-                            </h5>
-                        </center>
-                        <center>
-                            <a href="#" class="btn btn-dark">añadir al carrito</a>
-                            <a href="#" class="btn btn-danger">visualizar</a>
-                        </center><br>
+                            <p>
+                                <?php echo $producto['Nombre']; ?>
+                            </p>
+                        </div>
+                        <div class="logoañadir">
+                            <a href="../curso.php?Id_producto=<?php echo $producto['Id']?>"
+                                class="btn btn-dark">INICIAR</a>
+                        </div>
                     </div>
+
+
                 </div>
                 <?php  } ?>
             </div>
-        </section>
+
+
+        </div>
         <!-- servicios -->
         <section class="about-services">
             <div class="contenedor">
@@ -300,7 +528,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
-    <script>
+    <!-- <script>
         const btn = document.querySelector('#menu-btn');
         const menu = document.querySelector('#sidemenu');
         btn.addEventListener('click', e => {
@@ -309,7 +537,5 @@
 
             document.querySelector('body').classList.toggle('body-expanded');
         });
-    </script>
+    </script> -->
 </body>
-
-</html>

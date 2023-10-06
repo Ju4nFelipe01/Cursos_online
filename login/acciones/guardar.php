@@ -9,7 +9,6 @@ if (empty($_POST['Documento']) || empty($_POST['Nombre'])) {
         $Nombre = $_POST['Nombre'];
         $Correo = $_POST['Correo'];
         $Contraseña = $_POST['Contraseña'];
-        
 
         $query = " INSERT INTO usuarios(Documento, Nombre, Correo, Contraseña, Id_rol)
          values('$Documento', '$Nombre', '$Correo', '$Contraseña', '3')";

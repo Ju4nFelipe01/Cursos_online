@@ -1,4 +1,9 @@
 <!doctype html>
+<?php
+include "admin/config/Conexion.php";
+$resultado = mysqli_query($conectar,"SELECT * FROM productos");
+$productos=mysqli_fetch_all($resultado ,MYSQLI_ASSOC);
+?>
 <html lang="es">
 
 <head>
@@ -17,6 +22,124 @@
 </head>
 
 <body>
+    <style type="text/css">
+        body {
+
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+
+
+        }
+
+        :root {
+
+            --white: #FFFFFF;
+            --black: #000000;
+            --dark: #232830;
+            --very-light-pink: #C7C7C7;
+            --text-input-field: #F7F7F7;
+            --hospital-green: #ACD9B2;
+            --sm: 14px;
+            --md: 16px;
+            --lg: 18px;
+
+        }
+
+        .cards {
+            width: 100%;
+        }
+
+        .maincontainer {
+            width: 100%;
+        }
+
+
+        .cardcontainer {
+
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 240px);
+            gap: 80px;
+            place-content: center;
+
+        }
+
+        .productcard {
+
+            width: 240px;
+        }
+
+        .productcard img {
+
+
+            width: 100%;
+            height: 240px;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+
+        .productinfo {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+
+        div p:nth-child(1) {
+
+            font-weight: bold;
+            font-size: var(--md);
+            margin-top: 0px;
+            margin-bottom: 4px;
+        }
+
+        div p:nth-child(2) {
+
+
+            font-size: var(--sm);
+            color: var(--very-light-pink);
+            margin-top: 0;
+            margin-top: 0;
+        }
+
+        @media (max-width:640px) {
+
+            .cardcontainer {
+
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 140px);
+                gap: 30px;
+            }
+
+            .productcard {
+
+                width: 140px;
+            }
+
+            .productcard img {
+
+
+                width: 100%;
+                height: 140px;
+                border-radius: 20px;
+                object-fit: cover;
+            }
+
+            .btn {
+                width: 20px;
+
+                margin-bottom: 8px;
+
+            }
+
+
+
+
+        }
+    </style>
+
     <!-- cabezera de la pagina -->
     <header>
         <!-- barra de nacegacion -->
@@ -131,45 +254,45 @@
             </div>
         </section>
         <!-- algunos cursos -->
-     <section class="clientes contenedor">
+
         <h2 class="titulo">algunos de nuestros cursos</h2>
-        <div class="cards">
-            <?php 
-      include "admin/config/Conexion.php";
 
-      $sql = "SELECT * FROM productos";
-      $resultado = $conectar->query($sql);
 
-      while ($fila = $resultado-> fetch_assoc()) { ?>
-            <div class="card">
-                <img src="data:image/jpg;base64,<?php echo base64_encode($fila['Imagen'])?>" alt="">
-                <div class="contenido-texto-card">
-                    <h4>Curso:</h4>
-                    <center>
-                        <h5>
-                            <?php echo $fila['Nombre'] ?>
-                        </h5>
-                    </center>
-                    <h4>Descripcion:</h4>
-                    <center>
-                        <p>
-                            <?php echo $fila['Descripcion'] ?>
-                        </p>
-                    </center>
-                    <h4>valor</h4>
-                    <center>
-                        <h5>
-                            <?php echo $fila['Valor'] ?> pesos
-                        </h5>
-                    </center>
-                    <center>
-                        <a href="curso.php" class="btn btn-dark">INICIAR</a>
-                    </center><br>
+        <div class="maincontainer">
+
+            <div class="cardcontainer">
+                <?php foreach($productos as $producto) { ?>
+
+                <div class="productcard">
+
+
+
+                    <img src="data:image/jpg;base64,<?php echo base64_encode($producto['Imagen'])?>">
+
+                    <div class="productinfo">
+                        <div>
+                            <p>$
+                                <?php echo $producto['Valor']; ?>pesos
+                            </p>
+                            <p>
+                                <?php echo $producto['Nombre']; ?>
+                            </p>
+                        </div>
+                        <div class="logoañadir">
+                            <a href="curso.php?Id_producto=<?php echo $producto['Id']?>" class="btn btn-dark">INICIAR</a>
+                        </div>
+                    </div>
+
+
                 </div>
+                <?php  } ?>
             </div>
-            <?php  } ?>
+
+
         </div>
-    </section>
+
+
+
         <!-- servicios -->
         <section class="about-services">
             <div class="contenedor">
@@ -201,7 +324,7 @@
         </section>
     </main>
     <!-- footer -->
-        <footer>
+    <footer>
         <div class="contenedor-footer">
             <div class="content-foo">
                 <h4>telefono</h4>

@@ -23,6 +23,9 @@ if (!isset($rol)) {
 </head>
 
 <body class="body-expanded">
+  <?php 
+  $Nombre = $_SESSION['Nombre'];
+   $_SESSION['Nombre']=$Nombre ?>
 
   <!-- modal agregar curso-->
   <div class="modal fade" id="miModal" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle">
